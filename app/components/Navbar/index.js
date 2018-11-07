@@ -1,1 +1,1 @@
-export { default } from './PrimarySearchAppBar';
+export { default } from './Navbar';
