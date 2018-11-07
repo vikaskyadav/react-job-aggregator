@@ -7,21 +7,23 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import { Row, Col } from 'react-grid-system'; 
 import ReposList from 'components/ReposList';
 import './style.scss';
+import { TextField, Button, Card, CardHeader, CardContent, CardActions, CardMedia } from '@material-ui/core';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
 
-  componentWillMount() {
-    this.props.loadData();
-  }
+  // componentWillMount() {
+  //   this.props.loadData();
+  // }
 
 
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
+  onSubmitForm = () => {
+    if (this.props.skill && this.props.location && this.props.skill.trim().length > 0) {
       this.props.onSubmitForm();
     }
   }
@@ -41,27 +43,56 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <meta name="description" content="A React.js Boilerplate application homepage" />
         </Helmet>
         <div className="home-page">
-          <section className="centered">
-            <h2>Start your next react project in seconds</h2>
-            <p>A minimal <i>React-Redux</i> boilerplate with all the best practices</p>
-          </section>
-          <section>
-            <h2>Try me!</h2>
-            <form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-              Show Github repositories by
-                <span className="at-prefix">@</span>
-                <input
-                  id="username"
-                  type="text"
-                  placeholder="flexdinesh"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </form>
-            <ReposList {...reposListProps} />
-          </section>
+          <Row className="searchBar">
+            <Col>
+              <TextField
+                id="skill"
+                type="text"
+                placeholder="Skill"
+                value={this.props.skill}
+                onChange={this.props.onChangeSkill}
+                fullWidth
+              />
+            </Col>
+            <Col>
+              <TextField
+                id="location"
+                type="text"
+                placeholder="Location"
+                value={this.props.location}
+                onChange={this.props.onChangeLocation}
+                fullWidth
+              />
+            </Col>
+            <Col>
+              <Button color="primary" variant="raised" onClick={this.onSubmitForm}>
+              Go</Button>
+            </Col>
+          </Row>
+          {data ? data.map((item)=>(
+            <Fragment key={item.id}>
+              <Card className="jobCard">
+                <a href={item.url} target="_blank" className="jobURL">
+                <CardHeader title={item.title} subheader={ item.company + " ," + item.location} />
+                </a>
+                <CardContent>
+                  <p dangerouslySetInnerHTML={{__html:item.description}}></p>
+                </CardContent>
+                <CardActions>
+                <a href={item.company_url} target="_blank">
+                <Button size="small" color="primary" variant="raised" >
+                  Company URL
+                </Button>
+                </a>
+                <a href={item.url} target="_blank">
+                <Button size="small" color="primary" variant="raised" >
+                  Job URL
+                </Button>
+                </a>
+                </CardActions>
+              </Card>
+              </Fragment>
+            )) : null }
         </div>
       </Fragment>
     );
@@ -79,7 +110,8 @@ HomePage.propTypes = {
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
+  skill: PropTypes.string,
+  location: PropTypes.string,
   onChangeUsername: PropTypes.func,
   loadData: PropTypes.func,
   data: PropTypes.array

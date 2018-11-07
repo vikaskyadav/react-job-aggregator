@@ -7,31 +7,18 @@ import { LOAD_REPOS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { makeSelectSkill, makeSelectLocation } from 'containers/HomePage/selectors';
 
 import { dataLoadSuccess, dataLoadError } from './actions';
 import { DATA_LOAD_REQUEST } from './constants';
 /**
  * Github repos request/response handler
  */
-export function* getRepos() {
-  // Select username from store
-  const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
-  try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
-  } catch (err) {
-    yield put(repoLoadingError(err));
-  }
-}
-
 export function* getData() {
   // Select username from store
-  // const username = yield select(makeSelectUsername());
-  const requestURL = 'https://jobs.github.com/positions.json?description=python&location=new+york';
+  const skill = yield select(makeSelectSkill());
+  const location = yield select(makeSelectLocation());
+  const requestURL = `https://jobs.github.com/positions.json?description=${skill}&location=${location}`;
 
   try {
     // Call our request helper (see 'utils/request')
@@ -42,14 +29,28 @@ export function* getData() {
   }
 }
 
+// export function* getData() {
+//   // Select username from store
+//   // const username = yield select(makeSelectUsername());
+//   const requestURL = 'https://jobs.github.com/positions.json?description=python&location=new+york';
+
+//   try {
+//     // Call our request helper (see 'utils/request')
+//     const data = yield call(request, requestURL);
+//     yield put(dataLoadSuccess(data));
+//   } catch (err) {
+//     yield put(dataLoadError(err));
+//   }
+// }
+
 /**
  * Root saga manages watcher lifecycle
  */
 export default function* githubData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
+  // Watches for LOAD_REPOS actions and calls getJobs when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REPOS, getRepos);
+  // yield takeLatest(DATA_LOAD_REQUEST, getJobs);
   yield takeLatest(DATA_LOAD_REQUEST, getData);
 }

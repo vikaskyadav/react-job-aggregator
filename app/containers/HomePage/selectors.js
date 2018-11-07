@@ -11,7 +11,15 @@ const makeSelectUsername = () => createSelector(
   selectHome,
   (homeState) => homeState.get('username')
 );
+const makeSelectSkill = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('skill')
+);
 
+const makeSelectLocation = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('location')
+);
 const getDataFromSelector = () => createSelector(
   selectHome,
   (homeState) => homeState.get('data') ? homeState.get('data') : []
@@ -20,5 +28,7 @@ const getDataFromSelector = () => createSelector(
 export {
   selectHome,
   makeSelectUsername,
+  makeSelectSkill,
+  makeSelectLocation,
   getDataFromSelector
 };

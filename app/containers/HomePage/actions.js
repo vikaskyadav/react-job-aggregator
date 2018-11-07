@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME, DATA_LOAD_REQUEST, DATA_LOAD_SUCCESS, DATA_LOAD_ERROR } from './constants';
+import { CHANGE_USERNAME, CHANGE_SKILL, CHANGE_LOCATION ,DATA_LOAD_REQUEST, DATA_LOAD_SUCCESS, DATA_LOAD_ERROR } from './constants';
 
 /**
  * Changes the input field of the form
@@ -28,6 +28,20 @@ export function changeUsername(name) {
   return {
     type: CHANGE_USERNAME,
     name
+  };
+}
+
+export function changeSkill(skill) {
+  return {
+    type: CHANGE_SKILL,
+    skill
+  };
+}
+
+export function changeLocation(location) {
+  return {
+    type: CHANGE_LOCATION,
+    location
   };
 }
 
