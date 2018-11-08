@@ -31,9 +31,9 @@ function Navbar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            ProjectName
+            Job Aggregator
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="default" variant="raised" className="githubButton"><a href="https://github.com/vikaskyadav" target="_blank" rel="noopener noreferrer" className="githubLink">Github</a></Button>
         </Toolbar>
       </AppBar>
     </div>
