@@ -44,7 +44,10 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Helmet>
         <div className="home-page">
           <Row className="searchBar">
-            <Col>
+           <Col lg={2} md={2} sm={2}>
+           <div></div>
+           </Col>
+            <Col lg={3} md={3} sm={3}>
               <TextField
                 id="skill"
                 type="text"
@@ -52,9 +55,9 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 value={this.props.skill}
                 onChange={this.props.onChangeSkill}
                 fullWidth
-              />
+                />
             </Col>
-            <Col>
+            <Col lg={3} md={3} sm={3}>
               <TextField
                 id="location"
                 type="text"
@@ -62,9 +65,9 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 value={this.props.location}
                 onChange={this.props.onChangeLocation}
                 fullWidth
-              />
+                />
             </Col>
-            <Col>
+            <Col lg={2} md={2} sm={2}>
               <Button color="primary" variant="raised" onClick={this.onSubmitForm}>
               Go</Button>
             </Col>
@@ -92,7 +95,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 </CardActions>
               </Card>
               </Fragment>
-            )) : null }
+            )) : <p>OOPs! No Result Found</p> }
         </div>
       </Fragment>
     );
