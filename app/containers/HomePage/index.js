@@ -15,6 +15,7 @@ import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
 
+
 const mapDispatchToProps = (dispatch) => ({
   onChangeSkill: (evt) => dispatch(changeSkill(evt.target.value)),
   onChangeLocation: (evt) => dispatch(changeLocation(evt.target.value)),
