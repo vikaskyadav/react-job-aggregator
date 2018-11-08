@@ -33,7 +33,11 @@ function Navbar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Job Aggregator
           </Typography>
-          <Button color="default" variant="raised" className="githubButton"><a href="https://github.com/vikaskyadav" target="_blank" rel="noopener noreferrer" className="githubLink">Github</a></Button>
+          <a href="https://github.com/vikaskyadav/react-job-aggregator" target="_blank" rel="noopener noreferrer" className="githubLink">
+          <Button color="default" variant="raised" className="githubButton">
+          Github
+          </Button>
+          </a>
         </Toolbar>
       </AppBar>
     </div>
